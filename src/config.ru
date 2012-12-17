@@ -1,4 +1,7 @@
 require './paperboy'
+require './worker'
+
+Worker.turn_on
 
 rack_app = Rack::Builder.new do
   map '/newspapers' do
