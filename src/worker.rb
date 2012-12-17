@@ -8,7 +8,6 @@ class Worker
     @job_queue ||= Queue.new
     Thread.new do
       while true
-        puts @job_queue.empty?
         if not @job_queue.empty?
           work = @job_queue.pop(true) rescue nil
           if work

@@ -3,8 +3,6 @@ require_relative '../helpers/mailer'
 
 class EmailHandler < BaseHandler
   def send_message
-    puts 'got here!!'
-
     @recipients.each do |recipient|
       recipient_name = recipient['name']
       recipient_uri = recipient['uri']
