@@ -8,7 +8,7 @@
 
 ##### Endpoint
 ```
-http://paperboy.teamarks.com/newspapers
+https://paperboy.teamarks.com/newspapers
 ```
 
 ##### HTTP Method
@@ -19,10 +19,6 @@ http://paperboy.teamarks.com/newspapers
 
 `JSON`
 
-#### Parameters
-
-*none*
-
 #### Authentication
 
 - None (Cross-domain Rubber)
@@ -30,13 +26,30 @@ http://paperboy.teamarks.com/newspapers
 - API Key
 - OAuth
 
+#### Parameters
+
+No parameter require unless using certain authentication method.
+
+#### API Key
+
+- AccessKeyId
+- Signature
+
+##### Sample Request (URL)
+
+```
+https://paperboy.teamarks.com/newspapers
+?AccessKeyId=LKKJDF7RNJDFLKDERTR
+& Signature=9GZysQ4Jpnz%2BHklqM7
+```
+
 #### JSON Structure
 
 - Protocol: Email, Hipchat, SMS
 - Envelope: Sender and Recipients' name and URL
 - Message: Title, Body
 
-### Sample Request
+### Sample Request (JSON)
 
 ```json
 {
