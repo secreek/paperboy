@@ -103,7 +103,7 @@ https://paperboy.teamarks.com/newspapers
 ```
 HTTP/1.1 200
 
-{"message_id": 1001}
+{"message": "done"}
 ```
 
 #### Errors
