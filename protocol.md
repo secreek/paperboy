@@ -40,7 +40,7 @@ No parameter require unless using certain authentication method.
 ```
 https://paperboy.teamarks.com/newspapers
 ?AccessKeyId=LKKJDF7RNJDFLKDERTR
-& Signature=9GZysQ4Jpnz%2BHklqM7
+&Signature=9GZysQ4Jpnz%2BHklqM7
 ```
 
 #### JSON Structure
