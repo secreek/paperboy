@@ -72,12 +72,12 @@ https://paperboy.teamarks.com/newspapers
 			"title": "Great News!",
 			"body": "html email ..."
 			
-		}
+		},
 		"notification":{
 			"done": {
 				"name": "Cliff Woo",
 				"email": "cliffwoo@gmail.com"
-			}
+			},
 			"error": {
 				"name": "Cliff Woo",
 				"email": "cliffwoo@gmail.com"
