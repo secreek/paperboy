@@ -27,7 +27,7 @@ class Paperboy
     # Only process the message if request_json is valid
     # (validator defined in ./helpers/validators.rb,
     # and mixed-in with Object)
-    if is_request_valid request_json
+    if self.class.is_request_valid? request_json
       # Generate a unique id, save the request in the queue,
       # and let the worker process them one by one later
       id = gen_msg_id request_json
