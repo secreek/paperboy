@@ -71,13 +71,13 @@ https://paperboy.teamarks.com/newspapers
 		"message": {
 			"title": "Great News!",
 			"body": "html email ..."
-			
-		}
+
+		},
 		"notification":{
 			"done": {
 				"name": "Cliff Woo",
 				"email": "cliffwoo@gmail.com"
-			}
+			},
 			"error": {
 				"name": "Cliff Woo",
 				"email": "cliffwoo@gmail.com"
@@ -98,7 +98,7 @@ https://paperboy.teamarks.com/newspapers
 		"message": {
 			"title": "",
 			"body": "plain text, one share per line"
-			
+
 		}
 	},
 }
