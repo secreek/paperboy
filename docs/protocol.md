@@ -73,6 +73,16 @@ https://paperboy.teamarks.com/newspapers
 			"body": "html email ..."
 			
 		}
+		"notification":{
+			"done": {
+				"name": "Cliff Woo",
+				"email": "cliffwoo@gmail.com"
+			}
+			"error": {
+				"name": "Cliff Woo",
+				"email": "cliffwoo@gmail.com"
+			}
+		}
 	},
 	"hipchat": {
 		"sender": {
