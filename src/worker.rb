@@ -9,21 +9,15 @@ class Worker
 
     4.times do
       Thread.new do
-        while true
-          if not @job_queue.empty?
-            work = @job_queue.pop(true) rescue nil
-            if work
-              # dispatches the work
-              # TODO save the id to some database, CouchDB for example
-              id = work[:job_id]
-              json_obj = work[:material]
-              json_obj.each do |key, value|
-                handler = HandlerCreator.create_handler key
-                handler.handle_it value if handler != nil
-              end
-            end
-          else # check for new job every one second
-            sleep 0
+        loop do
+          work = @job_queue.pop(false) # Blocking
+          # dispatches the work
+          # TODO save the id to some database, CouchDB for example
+          id = work[:job_id]
+          json_obj = work[:material]
+          json_obj.each do |key, value|
+            handler = HandlerCreator.create_handler key
+            handler.handle_it value if handler != nil
           end
         end
       end
