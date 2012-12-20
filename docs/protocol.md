@@ -45,9 +45,10 @@ https://paperboy.teamarks.com/newspapers
 
 #### JSON Structure
 
-- Protocol: Email, Hipchat, SMS
-- Envelope: Sender and Recipients' name and URL
-- Message: Title, Body
+- Protocol: `email`, `hipchat`, `SMS`, ...
+- Envelope: `sender` and `recipients`'s `name` and `uri`
+- Message: `title`, `body`
+- Notification: In case of `done` and `error`, notify `name` via `email`
 
 ### Sample Request (JSON)
 
@@ -71,7 +72,6 @@ https://paperboy.teamarks.com/newspapers
 		"message": {
 			"title": "Great News!",
 			"body": "html email ..."
-
 		},
 		"notification":{
 			"done": {

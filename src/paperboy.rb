@@ -56,7 +56,7 @@ class Paperboy
     end
 
     Rack::Response.new.finish do |res|
-      res['Content-Type'] = 'text/plain'
+      res['Content-Type'] = 'application/json'
       res.status = @status
       str = JSON.dump @response_body
       res.write str
