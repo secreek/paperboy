@@ -1,5 +1,5 @@
 require 'thread'
-require './handlers/creator'
+require './handlers/handler'
 
 class Worker
   attr_accessor :job_queue
@@ -9,14 +9,14 @@ class Worker
 
     4.times do
       Thread.new do
+        handler = Handler.new
         loop do
           work = @job_queue.pop(false) # Blocking
           # dispatches the work
           # TODO save the id to some database, CouchDB for example
           job = work
           job.each do |key, value|
-            handler = HandlerCreator.create_handler key
-            handler.handle_it value if handler != nil
+            handler.handle_it key, value
           end
         end
       end
