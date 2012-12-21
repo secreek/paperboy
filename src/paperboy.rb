@@ -30,15 +30,12 @@ class Paperboy
     if self.class.is_request_valid? request_json
       # Generate a unique id, save the request in the queue,
       # and let the worker process them one by one later
-      id = gen_msg_id request_json
       complete_job = {
-        :job_id => id,
         :material => request_json
       }
       Worker.new_job complete_job
       @status = 200
       @response_body = {
-        :id => id,
         :message => "Got your paper"
       }
     elsif request_json # is not nil
@@ -64,10 +61,7 @@ class Paperboy
   end
 
   # Helper methods
-  def gen_msg_id json_object
-    Digest::MD5.hexdigest("#{JSON.dump json_object}/#{Time.now.to_s}")
-  end
-  
+
   def self.is_request_valid? json_object
     return false unless json_object.class == Hash
 
