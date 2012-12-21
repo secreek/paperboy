@@ -1,14 +1,17 @@
-require_relative 'base'
 require_relative '../helpers/mailer'
+require_relative '../handler'
 
-class EmailHandler < BaseHandler
-  def send_message
-    @recipients.each do |recipient|
+class EmailHandler
+  # register the handler
+  Handler.register('email', self)
+
+  def self.send_message value
+    value['recipients'].each do |recipient|
       recipient_name = recipient['name']
       recipient_uri = recipient['uri']
 
-      Mailer.send(@message_body,
-        "#{@sender_name} <#{@sender_uri}>",
+      Mailer.send(value['message']['body'],
+        "#{value['sender']['name']} <#{value['sender']['uri']}>",
         "#{recipient_name} <#{recipient_uri}>")
     end
   end
