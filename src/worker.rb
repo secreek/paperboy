@@ -13,9 +13,8 @@ class Worker
           work = @job_queue.pop(false) # Blocking
           # dispatches the work
           # TODO save the id to some database, CouchDB for example
-          id = work[:job_id]
-          json_obj = work[:material]
-          json_obj.each do |key, value|
+          job = work
+          job.each do |key, value|
             handler = HandlerCreator.create_handler key
             handler.handle_it value if handler != nil
           end
