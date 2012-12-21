@@ -6,9 +6,22 @@ require './helpers/validators'
 require './worker'
 
 class Paperboy
-  attr_accessor :status, :response_body
 
   def call env
+    # parses the request environment and returns these 3 data
+    access_key_id, signature, request_object = parse_request env
+
+    # TODO test access_key_id against signature
+    # access_key_id stores the AccessKeyId in protocol
+    # signature store the Signature in protocol
+    #
+    # access_key_id.is_valid_against_signature? signature
+
+    status, message = dispatch_job request_object
+    send_response status, message
+  end
+
+  def parse_request env
     request = Rack::Request.new env
     access_key_id = request['AccessKeyId']
     signature = request['Signature']
@@ -19,48 +32,45 @@ class Paperboy
       request_object = nil
     end
 
-    # TODO test access_key_id against signature
-    # access_key_id stores the AccessKeyId in protocol
-    # signature store the Signature in protocol
+    [access_key_id, signature, request_object]
+  end
 
+  def dispatch_job request_object
     # request_object is the JSON object that stores the data
     # Only process the message if request_object is valid
-    # (validator defined in ./helpers/validators.rb,
-    # and mixed-in with Object)
     if self.class.is_request_valid? request_object
       # Generate a unique id, save the request in the queue,
       # and let the worker process them one by one later
-      complete_job = {
-        :material => request_object
-      }
-      Worker.new_job complete_job
-      @status = 200
-      @response_body = {
+      Worker.new_job request_object
+      status = 200
+      response_body = {
         :message => "Got your paper"
       }
     elsif request_object # is not nil
       # Invalid request parameters
-      @status = 400
-      @response_body = {
+      status = 400
+      response_body = {
         :message => "Request body does not conform to paperboy protocol"
       }
     else
       # Problems from JSON parsing
-      @status = 400
-      @response_body = {
+      status = 400
+      response_body = {
         :message => "Problems parsing JSON, invalid JSON format probabily"
       }
     end
 
+    [status, response_body]
+  end
+
+  def send_response status, response_body
     Rack::Response.new.finish do |res|
       res['Content-Type'] = 'application/json'
-      res.status = @status
-      str = JSON.dump @response_body
+      res.status = status
+      str = JSON.dump response_body
       res.write str
     end
   end
-
-  # Helper methods
 
   def self.is_request_valid? json_object
     return false unless json_object.class == Hash
