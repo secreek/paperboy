@@ -2,7 +2,6 @@
 require 'json'
 require 'digest/md5'
 
-require './helpers/validators'
 require './worker'
 
 class Paperboy
