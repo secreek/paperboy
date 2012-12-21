@@ -1,8 +1,6 @@
 # The class that processes the HTTP request and give the HTTP response
 require 'json'
-require 'digest/md5'
 
-require './helpers/validators'
 require './worker'
 
 class Paperboy
@@ -42,6 +40,9 @@ class Paperboy
       # Generate a unique id, save the request in the queue,
       # and let the worker process them one by one later
       Worker.new_job request_object
+
+      # TODO try to the return if our worker cannot handle something
+
       status = 200
       response_body = {
         :message => "Got your paper"
