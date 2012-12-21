@@ -27,8 +27,8 @@ class Worker
     # Leave blank for now
   end
 
-  def self.new_job request_json
+  def self.new_job request_object
     @job_queue ||= Queue.new
-    @job_queue << request_json
+    @job_queue << request_object
   end
 end
