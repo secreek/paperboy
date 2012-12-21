@@ -14,31 +14,31 @@ class Paperboy
     signature = request['Signature']
     request_data = env['rack.input'].read
     begin
-      request_json = JSON.load request_data
+      request_object = JSON.load request_data
     rescue
-      request_json = nil
+      request_object = nil
     end
 
     # TODO test access_key_id against signature
     # access_key_id stores the AccessKeyId in protocol
     # signature store the Signature in protocol
 
-    # request_json is the JSON object that stores the data
-    # Only process the message if request_json is valid
+    # request_object is the JSON object that stores the data
+    # Only process the message if request_object is valid
     # (validator defined in ./helpers/validators.rb,
     # and mixed-in with Object)
-    if self.class.is_request_valid? request_json
+    if self.class.is_request_valid? request_object
       # Generate a unique id, save the request in the queue,
       # and let the worker process them one by one later
       complete_job = {
-        :material => request_json
+        :material => request_object
       }
       Worker.new_job complete_job
       @status = 200
       @response_body = {
         :message => "Got your paper"
       }
-    elsif request_json # is not nil
+    elsif request_object # is not nil
       # Invalid request parameters
       @status = 400
       @response_body = {
